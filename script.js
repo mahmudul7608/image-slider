@@ -1,21 +1,26 @@
-document.addEventListener("DOMContentLoaded", function () {
-  checkInternetConnection();
-});
+let slideIndex = 1;
+showSlides(slideIndex);
 
-function checkInternetConnection() {
-  var statusElement = document.getElementById("status");
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
 
-  // Create an image element
-  var img = new Image();
-  img.src = "https://www.google.com/images/phd/px.gif"; // Use a URL that is likely to be always available
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
 
-  img.onload = function () {
-    // Image loaded successfully, internet connection is available
-    statusElement.textContent = "Internet connection is available";
-  };
-
-  img.onerror = function () {
-    // Image failed to load, indicating no internet connection
-    statusElement.textContent = "No internet connection";
-  };
+function showSlides(n) {
+  let i;
+  let slides = document.getElementsByClassName("mySlides");
+  let dots = document.getElementsByClassName("dot");
+  if (n > slides.length) {slideIndex = 1}    
+  if (n < 1) {slideIndex = slides.length}
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";  
+  }
+  for (i = 0; i < dots.length; i++) {
+    dots[i].className = dots[i].className.replace(" active", "");
+  }
+  slides[slideIndex-1].style.display = "block";  
+  dots[slideIndex-1].className += " active";
 }
